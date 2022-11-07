@@ -1,5 +1,8 @@
 {:tasks
- {:init
+ {:requires ([babashka.curl :as curl]
+             [babashka.fs :as fs]
+             [clojure.string :refer [join split]])
+  :init
   (do
     (def token (slurp ".token"))
     (def yd->url (partial format "https://adventofcode.com/%s/day/%s/input"))
@@ -8,11 +11,9 @@
     (defn d-or-today [d] (or d (.format (java.text.SimpleDateFormat. "d") (new java.util.Date))))
     (defn fetch-input [url token]
       (curl/get url {:raw-args ["--cookie" (format "session=%s" token)] :throw false})))
+
   fetch
-  {:doc "-- get input for given day; requires session token stored in .token file, args default to today"
-   :requires ([babashka.curl :as curl]
-    [babashka.fs :as fs]
-    [clojure.string :refer [join split]])
+  {:doc "-- get input for given day; requires session token stored in `.token` file, args default to today"
    :task
    (let [[d yr] *command-line-args*
          d* (d-or-today d)
@@ -31,7 +32,7 @@
        (println msg)
        (println (format "Showing first %d lines:" amount))
        (println (apply str (take (count msg) (repeat "-"))))
-       (->> lines (take 30) (join "\n") println)
+       (println (join "\n" (take 30 lines)))
        (let [rst (drop amount lines)]
          (when-not (empty? rst)
            (println (format "[... %d lines skipped ...]" (count rst)))))))}}}
