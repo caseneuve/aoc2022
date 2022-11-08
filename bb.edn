@@ -1,4 +1,5 @@
-{:tasks
+{:paths ["."]
+ :tasks
  {:requires ([babashka.curl :as curl]
              [babashka.fs :as fs]
              [clojure.string :refer [join split]])
@@ -13,7 +14,7 @@
       (curl/get url {:raw-args ["--cookie" (format "session=%s" token)] :throw false})))
 
   fetch
-  {:doc "-- get input for given day; requires session token stored in `.token` file, args default to today"
+  {:doc "  get input for given day [requires session token stored in `.token` file; args default to today]"
    :task
    (let [[d yr] *command-line-args*
          d* (d-or-today d)
@@ -35,4 +36,17 @@
        (println (join "\n" (take 30 lines)))
        (let [rst (drop amount lines)]
          (when-not (empty? rst)
-           (println (format "[... %d lines skipped ...]" (count rst)))))))}}}
+           (println (format "[... %d lines skipped ...]" (count rst)))))))}
+
+  solve
+  {:doc "  run solution for given day [day defaults to today]"
+   :task
+   (let [d (Integer. (d-or-today (first *command-line-args*)))
+         day (format "day%02d" d)
+         fnc (symbol (str day ".solution") "-main")]
+     (try
+       ((requiring-resolve fnc))        ;; see also exec: https://book.babashka.org/#cli:exec
+       (catch java.lang.Exception _
+         (println "No solution for day" d "found!"))))}
+
+  }}
