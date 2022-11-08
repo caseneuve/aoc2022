@@ -5,7 +5,10 @@
              [clojure.string :refer [join split]])
   :init
   (do
-    (def token (slurp ".token"))
+    (defn exit! [& msgs] (apply println msgs) (System/exit 1))
+    (def token
+      (try (slurp ".token")
+           (catch java.io.FileNotFoundException e (exit! (str e)))))
     (def yd->url (partial format "https://adventofcode.com/%s/day/%s/input"))
     (def dirname (partial format "day%02d"))
     (def fname (partial format "%s/input.txt"))
@@ -24,7 +27,7 @@
          path (fname dir)
          {:keys [status body]} (fetch-input url token)
          ok? (= status 200)]
-     (when-not ok? (println status body) (System/exit 1))
+     (when-not ok? (exit! status body))
      (when-not (fs/exists? dir) (println "Creating" dir) (fs/create-dir dir))
      (spit path body)
      (let [msg (format "AoC %s day %s input successfully fetched!" yr* d*)
