@@ -17,7 +17,7 @@
       (curl/get url {:raw-args ["--cookie" (format "session=%s" token)] :throw false})))
 
   fetch
-  {:doc "  get input for given day [requires session token stored in `.token` file; args default to today]"
+  {:doc "  get input for given day [requires session token stored in `.token` file ; args default to today]"
    :task
    (let [[d yr] *command-line-args*
          d* (d-or-today d)
@@ -48,8 +48,6 @@
          day (format "day%02d" d)
          fnc (symbol (str day ".solution") "-main")]
      (try
-       ((requiring-resolve fnc))        ;; see also exec: https://book.babashka.org/#cli:exec
+       ((requiring-resolve fnc) day) ;; see also exec: https://book.babashka.org/#cli:exec
        (catch java.lang.Exception _
-         (println "No solution for day" d "found!"))))}
-
-  }}
+         (println "Could not run solution for day" d "(it's not there or crashes)!"))))}}}
