@@ -5,8 +5,7 @@
   (->> lines
        (partition-by empty?)
        (take-nth 2)
-       (map #(map parse-long %))
-       (map #(apply + %))
+       (map #(transduce (map parse-long) + %))
        (sort >)))
 
 (defn -main [day]
