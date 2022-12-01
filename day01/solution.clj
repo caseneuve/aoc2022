@@ -7,13 +7,12 @@
        (take-nth 2)
        (map #(map parse-long %))
        (map #(apply + %))
-       (sort >)
-       (take 3)))
+       (sort >)))
 
 (defn -main [day]
   (let [input (parse-input (file->lines day))]
     {:part1 (first input)
-     :part2 (apply + input)}))
+     :part2 (transduce (take 3) + input)}))
 
 
 (comment
@@ -34,5 +33,5 @@
 10000"
         input (parse-input (split test-str #"\n"))]
     {:part1 (= (first input) 24000)
-     :part2 (= (apply + input) 45000)})
+     :part2 (= (transduce (take 3) + input) 45000)})
   )
