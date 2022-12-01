@@ -48,6 +48,9 @@
          day (format "day%02d" d)
          fnc (symbol (str day ".solution") "-main")]
      (try
-       ((requiring-resolve fnc) day) ;; see also exec: https://book.babashka.org/#cli:exec
-       (catch java.lang.Exception _
-         (println "Could not run solution for day" d "(it's not there or crashes)!"))))}}}
+       ;; a propos `requiring-resolve` see also `exec` https://book.babashka.org/#cli:exec
+       (let [solutions (time ((requiring-resolve fnc) day))]
+         (doseq [[k v] solutions] (printf "%s %s%n" k v)))
+       (catch java.lang.Exception e
+         (println "Could not run solution for day" d)
+         (println "Error:" (str e)))))}}}
