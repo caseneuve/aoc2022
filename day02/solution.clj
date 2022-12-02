@@ -13,8 +13,8 @@
 
 (defn result [[a b] part]
   (if (= part 1)
-    (+ (inc b) (* 3 (.indexOf (nth rules a) b)))
-    (+ (inc (nth (nth rules a) b)) (* 3 b))))
+    (+ (inc b) (* 3 (.indexOf (rules a) b)))
+    (+ (inc ((rules a) b)) (* 3 b))))
 
 (defn -main [day]
   (let [input (map parse (file->lines day))
@@ -44,5 +44,4 @@ C Z"
         input (map parse (str->lines test-input))
         game (fn [p] (apply + (map #(result % p) input)))]
     {:part1 (= 15 (game 1)) :part2 (= 12 (game 2))})
-  (re-seq #"\w" "asdf")
   )
