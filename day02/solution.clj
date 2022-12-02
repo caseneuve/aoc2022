@@ -3,9 +3,9 @@
             [clojure.string :refer [index-of]]))
 
 (def rules
-  [[2 0 1]
-   [0 1 2]
-   [1 2 0]])
+  [[2 0 1]    ;; R = 0 [who-loses who-draws who-wins]
+   [0 1 2]    ;; P = 1
+   [1 2 0]])  ;; S = 2
 
 (defn parse [line]
   (let [[a b] (re-seq #"[A-Z]" line)]
