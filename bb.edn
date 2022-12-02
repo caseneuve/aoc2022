@@ -48,7 +48,6 @@
          ok? (= status 200)]
      (when-not ok? (exit! status body))
      (mkdir dir)
-     ;; (when-not (fs/exists? dir) (println "Creating" dir) (fs/create-dir dir))
      (spit path body)
      (let [msg (format "AoC %s day %s input successfully fetched!" yr* d*)
            amount 30
@@ -78,9 +77,3 @@
        (catch java.lang.Exception e
          (println "Could not run solution for day" d)
          (println "Error:" (str e)))))}}}
-
-(comment
-
-  (format (slurp ".template.txt") 3)
-
-  )
