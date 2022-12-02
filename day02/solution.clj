@@ -8,7 +8,7 @@
    [1 2 0]])  ;; S = 2
 
 (defn parse [line]
-  (let [[a b] (re-seq #"[A-Z]" line)]
+  (let [[a b] (re-seq #"\w" line)]
     [(index-of "ABC" a) (index-of "XYZ" b)]))
 
 (defn result [[a b] part]
@@ -44,4 +44,5 @@ C Z"
         input (map parse (str->lines test-input))
         game (fn [p] (apply + (map #(result % p) input)))]
     {:part1 (= 15 (game 1)) :part2 (= 12 (game 2))})
+  (re-seq #"\w" "asdf")
   )
