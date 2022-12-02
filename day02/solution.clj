@@ -7,9 +7,8 @@
    [0 1 2]    ;; P = 1
    [1 2 0]])  ;; S = 2
 
-(defn parse [line]
-  (let [[a b] (re-seq #"\w" line)]
-    [(index-of "ABC" a) (index-of "XYZ" b)]))
+(defn parse [[a _ b]]
+  [(index-of "ABC" a) (index-of "XYZ" b)])
 
 (defn result [[a b] part]
   (if (= part 1)
