@@ -1,9 +1,7 @@
 (ns tools
-  (:require [clojure.string :refer [split]]))
-
-(defn str->lines [s] (split s #"\n"))
+  (:require [clojure.string :refer [split-lines]]))
 
 (defn file->lines [dir]
   (-> (str dir "/" "input.txt")
       slurp
-      str->lines))
+      split-lines))

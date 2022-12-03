@@ -1,6 +1,6 @@
 (ns day02.solution
-  (:require [tools :refer [file->lines str->lines]]
-            [clojure.string :refer [index-of]]))
+  (:require [tools :refer [file->lines]]
+            [clojure.string :refer [index-of split-lines]]))
 
 (def rules
   [[2 0 1]    ;; R = 0 [who-loses who-draws who-wins]
@@ -40,7 +40,7 @@
   (let [test-input "A Y
 B X
 C Z"
-        input (map parse (str->lines test-input))
+        input (map parse (split-lines test-input))
         game (fn [p] (apply + (map #(result % p) input)))]
     {:part1 (= 15 (game 1)) :part2 (= 12 (game 2))})
   )
