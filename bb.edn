@@ -2,7 +2,7 @@
  :tasks
  {:requires ([babashka.curl :as curl]
              [babashka.fs :as fs]
-             [clojure.string :refer [join split]])
+             [clojure.string :refer [join split-lines]])
   :init
   (do
     (defn exit! [& msgs] (apply println msgs) (System/exit 1))
@@ -51,9 +51,11 @@
      (spit path body)
      (let [msg (format "AoC %s day %s input successfully fetched!" yr* d*)
            amount 30
-           lines (split (slurp path) (re-pattern "\n"))]
+           lines (split-lines (slurp path))]
        (println msg)
-       (println (format "Showing first %d lines:" amount))
+       (if (>= (count lines) amount)
+         (println (format "Showing first %d lines:" amount))
+         (println "Fetched input:"))
        (println (apply str (take (count msg) (repeat "-"))))
        (println (join "\n" (take 30 lines)))
        (let [rst (drop amount lines)]
