@@ -10,7 +10,10 @@
   (let [test-input "
 
 "
+        input (constantly test-input)
         ]
-
+    {:part1 nil
+     :part2 nil
+     }
     )
   )
