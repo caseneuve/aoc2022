@@ -1,5 +1,7 @@
 #+title: Advent of Code 2022 in Clojure via babashka
 
+[[img/stars.svg]]
+
 * Overview
 
 #+begin_example sh
