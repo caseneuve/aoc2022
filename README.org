@@ -18,3 +18,8 @@ solve      run solution for given day [day defaults to today]
 
 To fetch input via =bb fetch= (or =bb boot=), get the AOC session cookie and put it into ~.token~.  Basic solution skeleton will be created with =bb boot=, to change it, modify ~.template.txt~.
  
+
+* Shout outs!
+
+- to [[https://github.com/borkdude][@borkdude]] for creating [[https://babashka.org/ ][babashka]]
+- to [[https://github.com/tschady][@tschady]] for the [[https://github.com/tschady/advent-of-code/blob/main/script/tasks.clj][badge script]]
