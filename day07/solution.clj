@@ -11,7 +11,7 @@
 
 (defn -main [day]
   (let [input (file->lines day)
-        disk (->> input (remove #(re-matches #"\$ ls|dir \w+" %)) (reduce parser [[] {}]) second)
+        disk (->> input (remove #(re-find #"\$ ls|^dir" %)) (reduce parser [[] {}]) second)
         needed (+ 30000000 -70000000 (disk ["/"]))]
     {:part1 (->> disk vals (filter #(>= 100000 %)) (apply +))
      :part2 (->> disk vals (filter #(<= needed %)) (apply min))}))
